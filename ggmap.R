@@ -1,4 +1,7 @@
 library(dplyr)
+library(ggmap)
+
+tbl_eq <- load_data()
 
 init_map <- function(tbl_eq, ...) {
   getBoundaries <- function(tbl_eq) {
@@ -35,6 +38,7 @@ plot_map <-
                  aes(x = longitude, y = latitude, colour = depth, size = mag)) +
       scale_colour_gradient("Legend_label",
                             low = "#1E6AA8", high = "#F54242")
+    print(ggplot_object)
   }
 
 filterData <- function(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange) {
@@ -46,4 +50,4 @@ filterData <- function(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthR
              between(depth, depthRange[1], depthRange[2]))
 }
 
-tbl_eq %>% plot_map(timeRange = c(2015,2015))
+plot_map(tbl_eq, map_eq, timeRange = c(2015,2015))
