@@ -16,3 +16,4 @@ load_data <- function() {
 	tbl_eq <- tbl_eq[, c("latitude", "longitude", "depth", "mag", "year")]
 	tbl_eq
 }
+
