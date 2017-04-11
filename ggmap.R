@@ -1,42 +1,49 @@
+library(dplyr)
 
-init_map <- function(tbl_eq, goffset=0.05,...) {
-  
-  
-  lats <- range(tbl_eq$latitude)
-  lons <- range(tbl_eq$longitude)
-  
-  myLocation <- c(lons[1],lats[1],lons[2],lats[2])+goffset*c(-1,-1,1,1)
-  
-  
-  out <- get_map(location=myLocation,zoom=...)
-  
-  return(out)
-  
+init_map <- function(tbl_eq, ...) {
+  getBoundaries <- function(tbl_eq) {
+    boundaries <- tbl_eq %>% summarise(topLat = max(latitude), bottomLat = min(latitude),
+                                       topLon = max(longitude), bottomLon = min(longitude))
+    c(boundaries$bottomLon,
+      boundaries$bottomLat,
+      boundaries$topLon,
+      boundaries$topLat)
+  }
+  get_map(location = tbl_eq %>% getBoundaries(),
+          source = "google",
+          maptype = "hybrid",
+          crop = FALSE)
 }
 
-filterData <- function(tbl_eq, period=range(tbl_eq$year), 
-                       magnitudeRange=range(tbl_eq$mag), 
-                       depthRange=range(tbl_eq$depth)) {
-  tbl_eq %>%
-    filter(between(year, period[1], period[2]) & 
-             between(mag, magnitude[1], magnitude[2]) &
-             between(depth, depthRange[1], depthRange[2]))
-}
+map_eq <- init_map(tbl_eq)
 
 plot_map <- 
   function(
-    tbl_eq, 
-    map_eq = init_map(tbl_eq, goffset = 0.05), 
-    period = range(tbl_eq$year),
-    mag = range(tbl_eq$mag),
-    depth = range(tbl_eq$detph),
+    tbl_eq,
+    map_eq = map_eq, 
+    xrange = range(tbl_eq$longitude),
+    yrange = range(tbl_eq$latitude), 
+    timeRange = range(tbl_eq$year),
+    magnitudeRange = range(tbl_eq$mag),
+    depthRange = range(tbl_eq$depth),
     ...
   ) {
     
     ggplot_object <-
-      ggmap(map_eq) + 
-      geom_point(data = filterData(tbl_eq, period, mag, depth), alpha = 0.5,
+      ggmap(map_eq) + xlim(xrange) + ylim(yrange) + 
+      geom_point(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), alpha = 0.5,
                  aes(x = longitude, y = latitude, colour = depth, size = mag)) +
       scale_colour_gradient("Legend_label",
                             low = "#1E6AA8", high = "#F54242")
   }
+
+filterData <- function(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange) {
+  tbl_eq %>%
+    filter(between(longitude, xrange[1], xrange[2]) &
+             between(latitude, yrange[1], yrange[2]) &
+             between(year, timeRange[1], timeRange[2]) & 
+             between(mag, magnitudeRange[1], magnitudeRange[2]) &
+             between(depth, depthRange[1], depthRange[2]))
+}
+
+tbl_eq %>% plot_map(timeRange = c(2015,2015))
