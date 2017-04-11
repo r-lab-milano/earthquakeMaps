@@ -24,20 +24,19 @@ filterData <- function(tbl_eq, period=range(tbl_eq$year),
 }
 
 plot_map <- 
-	function(
-		tbl_eq, 
-		map_eq, 
-		period,
-		mag,
-		...
-	) {
-		# example code: FIX ME!!!
-	  
-	  
-	  
-		ggplot_object <- ggmap(maq_eq)
-		
-			ggplot(mtcars, aes(x = cyl, y = hp)) + 
-			geom_point()
-		return(ggplot_object)
-	}
+  function(
+    tbl_eq, 
+    map_eq = init_map(tbl_eq, goffset = 0.05), 
+    period = range(tbl_eq$year),
+    mag = range(tbl_eq$mag),
+    depth = range(tbl_eq$detph),
+    ...
+  ) {
+    
+    ggplot_object <-
+      ggmap(map_eq) + 
+      geom_point(data = filterData(tbl_eq, period, mag, depth), alpha = 0.5,
+                 aes(x = longitude, y = latitude, colour = depth, size = mag)) +
+      scale_colour_gradient("Legend_label",
+                            low = "#1E6AA8", high = "#F54242")
+  }
