@@ -5,15 +5,17 @@ rm(list = ls())
 library(shiny)
 library(shinydashboard)
 library(ggmap)
-#library(dplyr)
+library(dplyr)
 
 source("load_data.R")
-#source("ggplot.R")
+
 
 
 tbl_eq <- load_data()
 source("ggmap.R")
-if (!exists("map_eq")) map_eq <- init_map(tbl_eq)
+source("ggplot.R")
+# if (!exists("map_eq")) map_eq <- init_map(tbl_eq)
+
 # ui.R ----------------------------------------------------------------------
 
 ui <- ui <- dashboardPage(
@@ -31,7 +33,7 @@ ui <- ui <- dashboardPage(
 		# Boxes need to be put in a row (or column)
 		fluidRow(
 			box(plotOutput("plot1", height = 250))
-		)
+		 )
 	)
 )
 
@@ -44,9 +46,14 @@ library(shiny)
 server <- function(input, output) {
 
 		output$plot1 <- renderPlot({
-		plot_map(tbl_eq, map_eq,
-						 timeRange = input$range,
-						 magnitudeRange = input$range_mag)
+			plot_lat_violin(tbl_eq,
+											timeRange = input$range,
+											magnitudeRange = input$range_mag)
+			#ggplot(data = tbl_eq, aes(x = longitude, y = latitude, colour = mag_f)) + geom_point()
+				
+		# plot_map(tbl_eq, map_eq,
+		# 				 timeRange = input$range,
+		# 				 magnitudeRange = input$range_mag)
 		})
 		
 }
