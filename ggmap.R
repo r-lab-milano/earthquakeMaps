@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggmap)
 
-tbl_eq <- load_data()
+# tbl_eq <- load_data()
 
 init_map <- function(tbl_eq, ...) {
   getBoundaries <- function(tbl_eq) {
@@ -18,7 +18,7 @@ init_map <- function(tbl_eq, ...) {
           crop = FALSE)
 }
 
-map_eq <- init_map(tbl_eq)
+# map_eq <- init_map(tbl_eq)
 
 plot_map <- 
   function(
@@ -50,4 +50,4 @@ filterData <- function(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthR
              between(depth, depthRange[1], depthRange[2]))
 }
 
-plot_map(tbl_eq, map_eq, timeRange = c(2015,2015))
+# plot_map(tbl_eq, map_eq, timeRange = c(2015,2015))
