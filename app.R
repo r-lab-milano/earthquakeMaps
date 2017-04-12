@@ -5,7 +5,7 @@ rm(list = ls())
 library(shiny)
 library(shinydashboard)
 library(ggmap)
-library(dplyr)
+#library(dplyr)
 
 source("load_data.R")
 #source("ggplot.R")

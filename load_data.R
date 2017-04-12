@@ -14,6 +14,18 @@ load_data <- function() {
 		mag <- as.numeric(sub("(.*\\..*)--.*", "\\1", mag ))
 	})
 	tbl_eq <- tbl_eq[, c("latitude", "longitude", "depth", "mag", "year")]
+
+	# Data integration for ggplot
+	
+	tbl_eq <- tbl_eq %>% mutate(
+		depth_f = cut(depth , breaks = c(0, 2 , 4, 8, Inf),include.lowest = T ),
+		mag_f = cut(mag , breaks = c(0, 3, 5, Inf) ,include.lowest = T),
+		lat_f = cut(latitude , breaks = pretty(latitude, n = 3)),
+		lon_f = cut(longitude , breaks = pretty(longitude, n = 3))
+		
+	) %>% 
+		tbl_df()
+	
 	tbl_eq
 }
 

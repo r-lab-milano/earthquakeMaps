@@ -33,13 +33,14 @@ plot_map <-
   ) {
     
     ggplot_object <-
-      ggmap(map_eq) + xlim(xrange) + ylim(yrange) + 
+      ggmap(map_eq) + # xlim(xrange) + ylim(yrange) + 
       geom_point(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), alpha = 0.5,
                  aes(x = longitude, y = latitude, colour = depth, size = mag)) +
       scale_colour_gradient("Legend_label",
                             low = "#1E6AA8", high = "#F54242")
     print(ggplot_object)
   }
+
 
 filterData <- function(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange) {
   tbl_eq %>%
