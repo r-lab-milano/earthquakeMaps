@@ -46,7 +46,7 @@ library(shiny)
 server <- function(input, output) {
 
 		output$plot1 <- renderPlot({
-			plot_lat_violin(tbl_eq,
+			violin_plot(tbl_eq, x = mag, y = lat_f,  
 											timeRange = input$range,
 											magnitudeRange = input$range_mag)
 			#ggplot(data = tbl_eq, aes(x = longitude, y = latitude, colour = mag_f)) + geom_point()

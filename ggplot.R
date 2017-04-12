@@ -17,9 +17,11 @@ require(ggplot2)
 
 
 
-plot_lat_violin <- 
+violin_plot <- 
 	function(
 		tbl_eq,
+		x = x_var,
+		y = y_var,
 		xrange = range(tbl_eq$longitude),
 		yrange = range(tbl_eq$latitude), 
 		timeRange = range(tbl_eq$year),
@@ -30,11 +32,16 @@ plot_lat_violin <-
 		
 		ggplot_object <-
 			ggplot(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
-						 aes(lat_f, mag)) + 
-						 geom_violin() + 
-							coord_flip()
-					print(ggplot_object)
+						 aes(x, y)) + 
+			geom_violin() + 
+			coord_flip()
+		
+		print(ggplot_object)
 	}
+
+
+
+
 
 
 
