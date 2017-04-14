@@ -32,8 +32,13 @@ ui <- ui <- dashboardPage(
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
 		fluidRow(
-			box(plotOutput("plot1", height = 250))
-		 )
+			box(plotOutput("plot1", height = 250)),
+			box(plotOutput("plot2", height = 250))
+		  ),
+		 fluidRow(
+		 	box(plotOutput("plot3", height = 250)),
+		 	box(plotOutput("plot4", height = 250))
+		)
 	)
 )
 
@@ -46,14 +51,27 @@ library(shiny)
 server <- function(input, output) {
 
 		output$plot1 <- renderPlot({
-			violin_plot(tbl_eq, x = mag, y = lat_f,  
+			violin_mag_lat(tbl_eq,  
 											timeRange = input$range,
 											magnitudeRange = input$range_mag)
-			#ggplot(data = tbl_eq, aes(x = longitude, y = latitude, colour = mag_f)) + geom_point()
-				
-		# plot_map(tbl_eq, map_eq,
-		# 				 timeRange = input$range,
-		# 				 magnitudeRange = input$range_mag)
+		})
+
+		output$plot2 <- renderPlot({
+			violin_mag_lon(tbl_eq,  
+										 timeRange = input$range,
+										 magnitudeRange = input$range_mag)
+		})
+		
+		output$plot3 <- renderPlot({
+			violin_dep_lat(tbl_eq,  
+										 timeRange = input$range,
+										 magnitudeRange = input$range_mag)
+		})
+		
+		output$plot4 <- renderPlot({
+			violin_dep_lon(tbl_eq,  
+										 timeRange = input$range,
+										 magnitudeRange = input$range_mag)
 		})
 		
 }
