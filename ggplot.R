@@ -52,7 +52,7 @@ violin_mag_lat <-
 		ggplot_object <-
 			ggplot(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
 						 aes(lat_f, mag)) + 
-			geom_violin() + 
+			geom_violin(fill = "black") + 
 			coord_flip()
 		
 		print(ggplot_object)
@@ -73,7 +73,7 @@ violin_mag_lon <-
 		ggplot_object <-
 			ggplot(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
 						 aes(lon_f, mag)) + 
-			geom_violin() 
+			geom_violin(fill = "black") 
 		
 		print(ggplot_object)
 	}
@@ -93,7 +93,7 @@ violin_dep_lat <-
 		ggplot_object <-
 			ggplot(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
 						 aes(lat_f, depth)) + 
-			geom_violin() + 
+			geom_violin(fill = "black") + 
 			coord_flip()
 		
 		print(ggplot_object)
@@ -115,7 +115,7 @@ violin_dep_lon <-
 		ggplot_object <-
 			ggplot(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
 						 aes(lon_f, depth)) + 
-			geom_violin() 
+			geom_violin(fill = "black") 
 		
 		print(ggplot_object)
 	}

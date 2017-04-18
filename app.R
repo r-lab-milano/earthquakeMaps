@@ -14,7 +14,7 @@ source("load_data.R")
 tbl_eq <- load_data()
 source("ggmap.R")
 source("ggplot.R")
-# if (!exists("map_eq")) map_eq <- init_map(tbl_eq)
+ if (!exists("map_eq")) map_eq <- init_map(tbl_eq)
 
 # ui.R ----------------------------------------------------------------------
 
@@ -31,6 +31,9 @@ ui <- ui <- dashboardPage(
 	),
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
+		fluidRow(
+			box(plotOutput("map", height = 250))
+		),
 		fluidRow(
 			box(plotOutput("plot1", height = 250)),
 			box(plotOutput("plot2", height = 250))
@@ -49,6 +52,12 @@ ui <- ui <- dashboardPage(
 library(shiny)
 
 server <- function(input, output) {
+	
+	output$map <- renderPlot({
+		plot_map(tbl_eq, map_eq,
+						 timeRange = input$range,
+						 magnitudeRange = input$range_mag)
+	})	
 
 		output$plot1 <- renderPlot({
 			violin_mag_lat(tbl_eq,  
