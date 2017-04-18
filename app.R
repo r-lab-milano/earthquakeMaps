@@ -20,7 +20,13 @@ source("ggplot.R")
 
 ui <- ui <- dashboardPage(
 	dashboardHeader(title = "Filters"),
+	
 	dashboardSidebar(
+		sidebarMenu(
+			menuItem("Map", tabName = "map_tab", icon = icon("dashboard")),
+			menuItem("Plots", icon = icon("th"), tabName = "plot_tab",
+							 badgeLabel = "new", badgeColor = "green")
+		),
 		sliderInput("range", "Years:", 
 								min = min(tbl_eq$year), max = max(tbl_eq$year), 
 								value = c(1985, 1985) , step = 1,
@@ -31,15 +37,26 @@ ui <- ui <- dashboardPage(
 	),
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
-		fluidRow(
-			box(plotOutput("map"), height = 400),
-			box(plotOutput("plot1"), height = 180),
-			box(plotOutput("plot2"), height = 180)
-		),
-		fluidRow(
-			box(plotOutput("plot3", height = 200)),
-			box(plotOutput("plot4", height = 200))
-		)
+		tabItems(
+					tabItem(tabName = "map_tab",
+							h2("Dashboard tab content"),
+							fluidRow(
+							box(title = "Map", status = "primary", plotOutput("map")))
+			),
+
+				tabItem(tabName = "plot_tab",
+								h2("Dashboard tab content"),
+								fluidRow(
+								box(plotOutput("plot1")),
+								box(plotOutput("plot2"))
+								),
+								fluidRow(
+								box(plotOutput("plot3")),
+								box(plotOutput("plot4"))
+								)
+				)
+				)
+				
 	)
 )
 
