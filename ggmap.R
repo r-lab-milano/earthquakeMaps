@@ -38,7 +38,19 @@ plot_map <-
       					 alpha = 0.7,
                  aes(x = longitude, y = latitude, colour = mag)) +
       scale_colour_gradient("Legend_label",
-                            low = "#1E6AA8", high = "#F54242")
+                            low = "#1E6AA8", high = "#F54242") +
+    	 	theme ( 
+    		legend.position = c(0.05, 0.05), # put the legend INSIDE the plot area
+    		legend.justification = c(0, 0),
+    		# legend.background = element_rect(colour = F, fill = "white"),
+    		# legend.key = element_rect (fill = F, colour = F),
+    		panel.grid.major = element_blank (), # remove major grid
+    		panel.grid.minor = element_blank (),  # remove minor grid
+    		axis.text = element_blank (), 
+    		axis.title = element_blank (),
+    		axis.ticks = element_blank ()
+    	) 
+    
     print(ggplot_object)
   }
 
