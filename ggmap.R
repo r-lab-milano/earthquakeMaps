@@ -13,9 +13,9 @@ init_map <- function(tbl_eq, ...) {
       boundaries$topLat)
   }
   get_map(location = tbl_eq %>% getBoundaries(),
-          source = "google",
-          maptype = "hybrid",
-          crop = FALSE)
+          source = "google")
+          #maptype = "hybrid",
+          #crop = FALSE
 }
 
 # map_eq <- init_map(tbl_eq)
@@ -34,8 +34,9 @@ plot_map <-
     
     ggplot_object <-
       ggmap(map_eq) + # xlim(xrange) + ylim(yrange) + 
-      geom_point(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), alpha = 0.5,
-                 aes(x = longitude, y = latitude, colour = depth, size = mag)) +
+      geom_point(data = filterData(tbl_eq, xrange, yrange, timeRange, magnitudeRange, depthRange), 
+      					 alpha = 0.7,
+                 aes(x = longitude, y = latitude, colour = mag)) +
       scale_colour_gradient("Legend_label",
                             low = "#1E6AA8", high = "#F54242")
     print(ggplot_object)

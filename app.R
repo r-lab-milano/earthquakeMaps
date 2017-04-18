@@ -24,7 +24,7 @@ ui <- ui <- dashboardPage(
 		sliderInput("range", "Years:", 
 								min = min(tbl_eq$year), max = max(tbl_eq$year), 
 								value = c(1985, 1985) , step = 1,
-								animate = animationOptions(interval=1000, loop=T)),
+								animate = animationOptions(interval=3000, loop=F)),
 		sliderInput("range_mag", "Magnitudo:", 
 								min = min(tbl_eq$mag), max = max(tbl_eq$mag), 
 								value = c(2, 6.5)    , step = 0.5 )
@@ -32,15 +32,17 @@ ui <- ui <- dashboardPage(
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
 		fluidRow(
-			box(plotOutput("map", height = 250))
+			column(9, 
+						 box(plotOutput("map"))
+			),
+			column(3,
+						 fluidRow(box(plotOutput("plot1"))),
+						 fluidRow(box(plotOutput("plot2")))
+			)
 		),
 		fluidRow(
-			box(plotOutput("plot1", height = 250)),
-			box(plotOutput("plot2", height = 250))
-		  ),
-		 fluidRow(
-		 	box(plotOutput("plot3", height = 250)),
-		 	box(plotOutput("plot4", height = 250))
+			box(plotOutput("plot3", height = 200)),
+			box(plotOutput("plot4", height = 200))
 		)
 	)
 )
