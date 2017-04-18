@@ -32,13 +32,9 @@ ui <- ui <- dashboardPage(
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
 		fluidRow(
-			column(9, 
-						 box(plotOutput("map"))
-			),
-			column(3,
-						 fluidRow(box(plotOutput("plot1"))),
-						 fluidRow(box(plotOutput("plot2")))
-			)
+			box(plotOutput("map"), height = 400),
+			box(plotOutput("plot1"), height = 180),
+			box(plotOutput("plot2"), height = 180)
 		),
 		fluidRow(
 			box(plotOutput("plot3", height = 200)),
