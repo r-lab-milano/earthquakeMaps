@@ -19,13 +19,12 @@ source("ggplot.R")
 # ui.R ----------------------------------------------------------------------
 
 ui <- ui <- dashboardPage(
-	dashboardHeader(title = "Filters"),
+	dashboardHeader(title = "R-Lab#2"),
 	
 	dashboardSidebar(
 		sidebarMenu(
-			menuItem("Map", tabName = "map_tab", icon = icon("dashboard")),
-			menuItem("Plots", icon = icon("th"), tabName = "plot_tab",
-							 badgeLabel = "new", badgeColor = "green")
+			menuItem("Map", tabName = "map_tab", icon = icon("map-marker")),
+			menuItem("Plots", icon = icon("bar-chart"), tabName = "plot_tab")
 		),
 		sliderInput("range", "Years:", 
 								min = min(tbl_eq$year), max = max(tbl_eq$year), 
@@ -38,25 +37,25 @@ ui <- ui <- dashboardPage(
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
 		tabItems(
-					tabItem(tabName = "map_tab",
-							h2("Dashboard tab content"),
+			tabItem(tabName = "map_tab",
+							h2("Bove-Vettore fault system"),
 							fluidRow(
-							box(title = "Map", status = "primary", plotOutput("map")))
+								box(title = "Earthquakes evolution", status = "primary", plotOutput("map")))
 			),
-
-				tabItem(tabName = "plot_tab",
-								h2("Dashboard tab content"),
-								fluidRow(
-								box(plotOutput("plot1")),
-								box(plotOutput("plot2"))
-								),
-								fluidRow(
-								box(plotOutput("plot3")),
-								box(plotOutput("plot4"))
-								)
-				)
-				)
-				
+			
+			tabItem(tabName = "plot_tab",
+							h2("Bove-Vettore fault system"),
+							fluidRow(
+								box(title = "Magnitude at different Latitudes", status = "primary", plotOutput("plot1")),
+								box(title = "Magnitude at different Longitudes", status = "primary", plotOutput("plot2"))
+							),
+							fluidRow(
+								box(title = "Depth at different Latitudes", status = "primary", plotOutput("plot3")),
+								box(title = "Depth at different Longitudes", status = "primary", plotOutput("plot4"))
+							)
+			)
+		)
+		
 	)
 )
 
