@@ -1,6 +1,6 @@
 # global.R -----------------------------------------------------------------
 
-rm(list = ls())
+#rm(list = ls())
 
 library(shiny)
 library(shinydashboard)
@@ -30,7 +30,7 @@ ui <- ui <- dashboardPage(
 	dashboardBody(
 		# Boxes need to be put in a row (or column)
 		fluidRow(
-			box(plotOutput("plot1", height = 250))
+			box(plotOutput("plot1", height = 700))
 		)
 	)
 )
