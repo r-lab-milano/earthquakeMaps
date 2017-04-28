@@ -46,7 +46,7 @@ ui <- shinyUI(bootstrapPage(
 									selectInput("colors", "Color Scheme",
 															rownames(subset(brewer.pal.info, category %in% c("seq", "div")))
 									),
-									sliderInput("alpha", "Circle color trasparency", 
+									sliderInput("alpha", "Circle color transparency", 
 															min = 0, max = 1, value = 0.7, step = 0.1), 
 									checkboxInput("legend", "Show legend", TRUE)
 								)
